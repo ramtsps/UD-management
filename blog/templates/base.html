@@ -100,7 +100,7 @@
                 <a class="nav-link text-white" href="{% url 'blog:profile' %}">
                   {% if request.session.profile_picture %}
                   <img
-                    src="{{ request.session.profile_picture }}"
+                    src="{{ request.session.profile_picture.url }}"
                     alt="Profile Picture"
                     style="
                       width: 24px;

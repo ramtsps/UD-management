@@ -164,6 +164,7 @@ def index(request):
     
     # Check if the 'user_id' is set in the session
     if request.session.get('user_id') is None:
+        messages.error(request, "Please Login")
         return redirect('blog:login')  # Redirect to the login page if no user is logged in
     
     # Proceed with rendering the page if the user is logged in
@@ -236,6 +237,7 @@ def delete_view(request, id):
 
 def update_user_data(request, id):
     if request.session.get('user_id') is None:
+        messages.error(request, "Please Login")
         return redirect('blog:login')
     # Get the user object or return a 404 if not found
     data = get_object_or_404(UserData, id=id)
