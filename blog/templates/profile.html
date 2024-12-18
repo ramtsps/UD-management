@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="card shadow mt-4 mx-auto" style="max-width: 600px">
+  <div class="card-header text-center bg-info text-white">
+    <h4>{{ user.username | upper }}'s Profile</h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-4 text-center">
+        <!-- Profile picture -->
+        {% if user.profile_picture %}
+        <img
+          src="{{ user.profile_picture.url }}"
+          alt="Profile Picture"
+          class="img-fluid rounded-circle"
+          style="width: 120px; height: 120px; object-fit: cover"
+        />
+        {% else %}
+        <img
+          src="{% static 'images/default-avatar.png' %}"
+          alt="Profile Picture"
+          class="img-fluid rounded-circle"
+          style="width: 120px; height: 120px; object-fit: cover"
+        />
+        {% endif %}
+      </div>
+      <div class="col-md-6">
+        <h5><strong>Username:</strong> {{ user.username | capfirst }}</h5>
+        <h5><strong>Email:</strong> {{ user.email }}</h5>
+      </div>
+    </div>
+
+    <!-- Edit Profile Button -->
+    <div class="text-center mt-4">
+      <a href="{% url 'blog:edit_profile' %}" class="btn btn-warning">
+        <i class="fas fa-edit"></i> Edit Profile
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

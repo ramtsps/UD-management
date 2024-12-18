@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-5 text-center">
+  <h1 class="display-4 text-danger">Oops! Page Not Found</h1>
+  <p class="lead">
+    Sorry, but the page you are looking for doesn't exist or has been moved.
+  </p>
+  <a href="{% url 'blog:index' %}" class="btn btn-primary">Go Back to Home</a>
+</div>
+{% endblock %}

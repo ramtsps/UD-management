@@ -1,0 +1,90 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <!-- Display messages here -->
+      {% if messages %}
+      <div class="my-3">
+        {% for message in messages %}
+        <div
+          class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm"
+          role="alert"
+          style="
+            border-left: 5px solid
+              {% if message.tags == 'success' %} #28a745
+              {% elif message.tags == 'error' %} #dc3545
+              {% elif message.tags == 'warning' %} #ffc107
+              {% elif message.tags == 'info' %} #17a2b8
+              {% else %} #6c757d {% endif %};
+            border-radius: 8px;
+            background-color: {% if message.tags == 'success' %} #e6f4ea
+              {% elif message.tags == 'error' %} #f8d7da
+              {% elif message.tags == 'warning' %} #fff3cd
+              {% elif message.tags == 'info' %} #d1ecf1
+              {% else %} #f8f9fa {% endif %};
+            color: {% if message.tags == 'success' %} #155724
+              {% elif message.tags == 'error' %} #721c24
+              {% elif message.tags == 'warning' %} #856404
+              {% elif message.tags == 'info' %} #0c5460
+              {% else %} #383d41 {% endif %};
+          "
+        >
+          <i
+            class="{% if message.tags == 'success' %} fas fa-check-circle {% elif message.tags == 'error' %} fas fa-times-circle {% elif message.tags == 'warning' %} fas fa-exclamation-triangle {% elif message.tags == 'info' %} fas fa-info-circle {% else %} fas fa-bell {% endif %}"
+          ></i>
+          <strong>{{ message|capfirst }}</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Card -->
+      <div class="card shadow">
+        <div class="card-header text-center bg-primary text-white">
+          <h4><i class="fas fa-sign-in-alt"></i> Login</h4>
+        </div>
+        <div class="card-body">
+          <form method="POST" action="{% url 'blog:login' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="username" class="form-label">
+                <i class="fas fa-user"></i> Username
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                name="username"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">
+                <i class="fas fa-lock"></i> Password
+              </label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                required
+              />
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary w-50">
+                <i class="fas fa-sign-in-alt"></i> Login
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

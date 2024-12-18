@@ -1,0 +1,181 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}User Data Management{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    {% comment %}
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    {% endcomment %}
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Custom Colors for Header and Footer */
+      header {
+        background-color: #28a745;
+        color: white;
+        padding: 15px 0;
+      }
+      footer {
+        background-color: #343a40;
+        color: white;
+        padding: 10px 0;
+        text-align: center;
+      }
+      .navbar-nav li a {
+        color: white !important;
+      }
+      .navbar-nav li a:hover {
+        color: #f5d402ff !important;
+      }
+    </style>
+  </head>
+  <body
+    style="display: flex; flex-direction: column; min-height: 100vh; margin: 0"
+  >
+    <!-- Header Section -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'blog:index' %}">
+            <i class="fas fa-database"></i> UD Management
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              {% if request.session.user_id %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'blog:index'%}">
+                  <i class="fas fa-home"></i> Home
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'blog:contact'%}">
+                  <i class="fas fa-user-plus"></i> Add User
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'blog:ListOut'%}">
+                  <i class="fas fa-users"></i> ListOut User
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link btn btn-danger text-white"
+                  href="{% url 'blog:logout' %}"
+                >
+                  <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+              </li>
+              <li class="nav-item navbar-profile">
+                <!-- Display Profile Picture -->
+                
+                <a class="nav-link text-white" href="{% url 'blog:profile' %}">
+                  {% if request.session.profile_picture %}
+                  <img
+                    src="{{ request.session.profile_picture }}"
+                    alt="Profile Picture"
+                    style="
+                      width: 24px;
+                      height: 24px;
+                      object-fit: cover;
+                      border-radius: 50%;
+                      margin-right: 8px;
+                    "
+                  />
+                  {% else %}
+                  <img
+                    src="{% static 'images/default-avatar.png' %}"
+                    alt="Default Profile Picture"
+                    style="
+                      width: 24px;
+                      height: 24px;
+                      object-fit: cover;
+                      border-radius: 50%;
+                      margin-right: 8px;
+                    "
+                  />
+                  {% endif %}</i> Hello,
+                  <b>{{ request.session.username | upper }}</b>!
+                </a>
+              </li>
+
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'blog:login' %}">
+                  <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'blog:register' %}">
+                  <i class="fas fa-user-plus"></i> Register
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <br /><br />
+    <!-- Main Content Section -->
+    <main>{% block content %} {% endblock %}</main>
+
+    <!-- Footer Section -->
+    <br /><br />
+    <br /><br />
+    <footer
+      style="
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #222;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 14px;
+      "
+    >
+      <p>&copy; 2024 User Data Management | All rights reserved</p>
+    </footer>
+
+    <!-- Bootstrap JS (Popper and Bootstrap Bundle) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
